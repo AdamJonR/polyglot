@@ -1,0 +1,13 @@
+{
+  "inputDir":"/Users/adam/Desktop/testInput/",
+  "outputDir":"/Users/adam/Desktop/testOutput/",
+  "extensions":{
+    ".html":[
+      {
+        "dialect":"qform",
+        "start":"<!--qform:o-->\n",
+        "stop":"<!--qform:c-->\n"
+      }
+    ]
+  }
+}
