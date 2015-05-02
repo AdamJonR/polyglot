@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"io"
 	"io/ioutil"
 	"os"
 	"path/filepath"
@@ -59,19 +60,6 @@ func main() {
 		// prep File
 		dir, name := filepath.Split(path)
 		ext := filepath.Ext(path)
-		// skip files without extensions
-		if ext == "" {
-			return nil
-		}
-		// skip files with extensions that are not configured with dialects
-		_, ok := config.Extensions[ext]
-		if !ok {
-			return nil
-		}
-		// skip hidden files
-		if name[0:1] == "." {
-			return nil
-		}
 		pathRel, err := filepath.Rel(config.InputDirAbs, path)
 		if err != nil {
 			fmt.Printf("file %q not parsed due to relative path error\n", path)
@@ -79,6 +67,22 @@ func main() {
 		}
 		// create file pointer
 		file := &File{Path: path, Name: name, Dir: dir, PathRel: pathRel, Ext: ext}
+		// skip files without extensions
+		if ext == "" {
+			CopyFile(config, file)
+			return nil
+		}
+		// skip files with extensions that are not configured with dialects
+		_, ok := config.Extensions[ext]
+		if !ok {
+			CopyFile(config, file)
+			return nil
+		}
+		// skip hidden files
+		if name[0:1] == "." {
+			CopyFile(config, file)
+			return nil
+		}
 		// call parser
 		ParseFile(config, file)
 		// standard return
@@ -230,4 +234,27 @@ lexiconFor:
 	// note error and move on
 	fmt.Printf("the output file %q could not be written to.\n", file.Path)
 	fmt.Print(err)
+}
+
+func CopyFile(config *Config, file *File) {
+	source, err := os.Open(file.Path)
+	if err != nil {
+		// note error and move on
+		fmt.Printf("the input file %q could not be opened.\n", file.Path)
+		return
+	}
+	defer source.Close()
+	dest, err := os.Create(filepath.Clean(config.OutputDirAbs + "/" + file.PathRel))
+	if err != nil {
+		// note error and move on
+		fmt.Printf("the output file %q could not be created.\n", file.Path)
+		return
+	}
+	if _, err := io.Copy(dest, source); err != nil {
+		dest.Close()
+		// note error and move on
+		fmt.Printf("the output file %q could not be created.\n", file.Path)
+	}
+	dest.Close()
+	return
 }
