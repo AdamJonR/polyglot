@@ -1,0 +1,118 @@
+File: /Users/adam/Desktop/testInput/form-example.html
+form attribute*, form field*
+| hyphen, name, value?, newline
+| found
+| hyphen, name, value?, newline
+| missing hyphen on line 2
+| newline?, field type, field attribute*
+| | field name, newline
+| | found
+| | hyphen, name, value?, newline?
+| | found
+| | hyphen, name, value?, newline?
+| | found
+| | hyphen, name, value?, newline?
+| | found
+| | hyphen, name, value?, newline?
+| | missing hyphen on line 7
+| | hyphen, array, newline?
+| | missing hyphen on line 7
+| found
+| newline?, field type, field attribute*
+| | field name, newline
+| | found
+| | hyphen, name, value?, newline?
+| | found
+| | hyphen, name, value?, newline?
+| | missing hyphen on line 10
+| | hyphen, array, newline?
+| | missing hyphen on line 10
+| found
+| newline?, field type, field attribute*
+| | field name, newline
+| | found
+| | hyphen, name, value?, newline?
+| | found
+| | hyphen, name, value?, newline?
+| | missing hyphen on line 13
+| | hyphen, array, newline?
+| | missing hyphen on line 13
+| found
+| newline?, field type, field attribute*
+| | field name, newline
+| | found
+| | hyphen, name, value?, newline?
+| | found
+| found
+found
+
+File: /Users/adam/Desktop/testInput/test/form-example-options.html
+form attribute*, form field*
+| hyphen, name, value?, newline
+| missing hyphen on line 1
+| newline?, field type, field attribute*
+| | field name, newline
+| | found
+| | hyphen, name, value?, newline?
+| | found
+| | hyphen, name, value?, newline?
+| | missing name on line 3
+| | hyphen, array, newline?
+| | | array open, newline, option*, array close
+| | | | indent, name, value?, newline
+| | | | found
+| | | | indent, name, value?, newline
+| | | | found
+| | | | indent, name, value?, newline
+| | | | found
+| | | | indent, name, value?, newline
+| | | | missing indent on line 7
+| | | found
+| | found
+| | hyphen, name, value?, newline?
+| | missing hyphen on line 8
+| | hyphen, array, newline?
+| | missing hyphen on line 8
+| found
+| newline?, field type, field attribute*
+| | field name, newline
+| | found
+| | hyphen, name, value?, newline?
+| | found
+| | hyphen, name, value?, newline?
+| | missing name on line 11
+| | hyphen, array, newline?
+| | | array open, newline, option*, array close
+| | | | indent, name, value?, newline
+| | | | found
+| | | | indent, name, value?, newline
+| | | | missing indent on line 13
+| | | found
+| | found
+| | hyphen, name, value?, newline?
+| | missing hyphen on line 14
+| | hyphen, array, newline?
+| | missing hyphen on line 14
+| found
+| newline?, field type, field attribute*
+| | field name, newline
+| | found
+| | hyphen, name, value?, newline?
+| | found
+| | hyphen, name, value?, newline?
+| | missing name on line 17
+| | hyphen, array, newline?
+| | | array open, newline, option*, array close
+| | | | indent, name, value?, newline
+| | | | found
+| | | | indent, name, value?, newline
+| | | | found
+| | | | indent, name, value?, newline
+| | | | found
+| | | | indent, name, value?, newline
+| | | | missing indent on line 21
+| | | found
+| | found
+| found
+found
+

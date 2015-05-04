@@ -50,7 +50,8 @@ func main() {
 	if err != nil {
 		os.Exit(1)
 	}
-	//
+	// declare log summary
+	logSummary := ""
 	// walk inputDir
 	err = filepath.Walk(config.InputDirAbs, func(path string, f os.FileInfo, err error) error {
 		// skip directories
@@ -84,7 +85,7 @@ func main() {
 			return nil
 		}
 		// call parser
-		ParseFile(config, file)
+		logSummary = logSummary + ParseFile(config, file)
 		// standard return
 		return nil
 	})
@@ -92,6 +93,8 @@ func main() {
 	if err != nil {
 		os.Exit(1)
 	}
+	// write log file
+	_ = ioutil.WriteFile("polyglot-log.txt", []byte(logSummary), 0777)
 }
 
 func NewConfig(path string) (*Config, error) {
@@ -161,13 +164,15 @@ func NewConfig(path string) (*Config, error) {
 	return config, nil
 }
 
-func ParseFile(config *Config, file *File) {
+func ParseFile(config *Config, file *File) string {
+	var logSummary string = "File: " + file.Path + "\n"
+	var log string
 	// store file contents
 	bytes, err := ioutil.ReadFile(file.Path)
 	// check for error
 	if err != nil {
 		// exit early if read error
-		return
+		return log
 	}
 	// convert to string
 	source := string(bytes)
@@ -197,17 +202,18 @@ lexiconFor:
 			selections := strings.Split(section, lexicon.Stop)
 			// if only one section, there's no closing tag
 			if len(selections) != 2 {
-				fmt.Printf("incomplete parsing of %q: the %q start delimiter has no stop delimiter or an extra stop delimiter.\n", lexicon.Dialect, file.Path)
+				logSummary = logSummary + "incomplete parsing using " + lexicon.Dialect + " because the start delimiter '" + lexicon.Start + "' has no stop delimiter or an extra stop delimiter\n\n"
 				continue lexiconFor
 			}
 			// parse contents of first selection
-			selections[0], err = dialects.Parse(dsl, selections[0])
+			selections[0], err, log = dialects.Parse(dsl, selections[0])
 			// check for parsing error
 			if err != nil {
-				fmt.Printf("incomplete parsing of %q: the %q dialect could not be parsed.\n", lexicon.Dialect, file.Path)
-				fmt.Println(err)
+				logSummary = logSummary + "incomplete parsing using " + lexicon.Dialect + ": " + err.Error() + "\n\n"
 				continue lexiconFor
 			}
+			// append log to logSummary
+			logSummary = logSummary + log
 			// put put parsed result back in selections
 			sections[i] = strings.Join(selections, "")
 		}
@@ -220,7 +226,7 @@ lexiconFor:
 	err = ioutil.WriteFile(filepath.Clean(config.OutputDirAbs+"/"+file.PathRel), byteSource, 0777)
 	// done if no error
 	if err == nil {
-		return
+		return logSummary
 	}
 	// otherwise, check if directories need to be created first
 	dirRel := filepath.Dir(file.PathRel)
@@ -229,11 +235,12 @@ lexiconFor:
 	err = ioutil.WriteFile(filepath.Clean(config.OutputDirAbs+"/"+file.PathRel), byteSource, 0777)
 	// done if no error
 	if err == nil {
-		return
+		return logSummary
 	}
-	// note error and move on
-	fmt.Printf("the output file %q could not be written to.\n", file.Path)
-	fmt.Print(err)
+	// log error and move on
+	logSummary = logSummary + "output file " + file.Path + "could not be written to: " + err.Error() + "\n\n"
+	// return logSummary
+	return logSummary
 }
 
 func CopyFile(config *Config, file *File) {
