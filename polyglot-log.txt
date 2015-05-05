@@ -96,23 +96,8 @@ form attribute*, form field*
 | found
 | newline?, field type, field attribute*
 | | field name, newline
-| | found
-| | hyphen, name, value?, newline?
-| | found
-| | hyphen, name, value?, newline?
-| | missing name on line 17
-| | hyphen, array, newline?
-| | | array open, newline, option*, array close
-| | | | indent, name, value?, newline
-| | | | found
-| | | | indent, name, value?, newline
-| | | | found
-| | | | indent, name, value?, newline
-| | | | found
-| | | | indent, name, value?, newline
-| | | | missing indent on line 21
-| | | found
-| | found
-| found
+| | | invalid field name starting on line 15: field name must be valid type (e.g., text, textarea, radio, tel, etc.)
+| | missing field name on line 15
+| missing field type on line 15
 found
 
