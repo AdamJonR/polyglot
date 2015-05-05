@@ -1,6 +1,10 @@
 # Polyglot
 
-Polyglot is a command line tool that automatically parses DSLs that have been implemented with Dialect, a recursive-descent parser for Domain Specific Languages (DSLs) that is implemented using Go and facilitates parsing through use of Parsing Expression Grammars (PEGs).
+Polyglot is a command line tool that automatically parses embedded DSLs that have been implemented with Dialect, a recursive-descent parser for Domain Specific Languages (DSLs) that is implemented using Go and facilitates parsing through use of Parsing Expression Grammars (PEGs).
+
+## Motivation
+
+Providing the ability to embed multiple DSLs in files containing other code allows you to use the best tool for the job. When you can benefit from the clarity and brevity of a DSL, using Polyglot you can embed the DSL(s) and use it alongside the more powerful and general programming facility.
 
 ## Using Polyglot
 
@@ -21,3 +25,5 @@ You can automatically parse files that contain DSL source code by calling Polygl
   }
 }
 ```
+
+Once parsed, Polyglot outputs polyglot-log.txt with information on each parsed file extension.
