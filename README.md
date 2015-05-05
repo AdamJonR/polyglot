@@ -6,6 +6,14 @@ Polyglot is a command line tool that automatically parses embedded DSLs that hav
 
 Providing the ability to embed multiple DSLs in files containing other code allows you to use the best tool for the job. When you can benefit from the clarity and brevity of a DSL, using Polyglot you can embed the DSL(s) and use it alongside the more powerful and general programming facility.
 
+## Supported DSLs
+
+Currently, Polyglot only has one DSL implemented, but more are on the way.
+
+- (QForm: a DSL for creating HTML5 forms)[https://github.com/AdamJonR/qform]
+- H5: a DSL for creating HTML5 (coming soon)
+- EZBC: a DSL for performing bcmath calculations in PHP (coming soon)
+
 ## Using Polyglot
 
 You can automatically parse files that contain DSL source code by calling Polyglot and passing in the path to the config.json file. An example config file is below. In the file, the input directory (the directory that contains files to by parsed) and the output directory (the directory that contains files having been parsed.) The extensions object contains an array of parsing implementations by file extension.
