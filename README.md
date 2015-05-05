@@ -10,7 +10,7 @@ Providing the ability to embed multiple DSLs in files containing other code allo
 
 Currently, Polyglot only has one DSL implemented, but more are on the way.
 
-- (QForm: a DSL for creating HTML5 forms)[https://github.com/AdamJonR/qform]
+- [QForm: a DSL for creating HTML5 forms](https://github.com/AdamJonR/qform)
 - H5: a DSL for creating HTML5 (coming soon)
 - EZBC: a DSL for performing bcmath calculations in PHP (coming soon)
 
